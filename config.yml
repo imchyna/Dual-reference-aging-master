@@ -1,0 +1,55 @@
+calibration:
+    frames_path: 'frames'
+    pattern: [9, 6]
+    excluded: []
+    template: '*.jpg'
+    out_name: 'default'
+    results:
+        save: True
+        path: 'saveFrame'
+    criteria:
+        corners_eps: 0.001
+        corners_max_it: 100
+        cam_mtx_eps: 0.001
+        cam_mtx_max_it: 100
+
+app:
+    mode: 'gpu'
+    source: 0 # ID | PATH_TO_FILE
+    template: '*.png'
+    skip: True
+    downsample:
+        enable: False
+        max_size: [640, 480]
+    undistortion:
+        enabled: False
+        method: 1 # 1 | 2 | 3
+        calibs: 'calibrations/default.npy'
+    frames:
+        save: True
+        path: 'saveFrame'
+    fd:
+        detector: 'dlib'
+        upsample: False # 'dlib' only
+        save: True
+        path: 'FindSave'
+        ocv_cascade: 'haarcascade_frontalface_default.xml'
+    gender:
+        enable: False
+        type: 'Rothe' # | 'Rothe' | 'Levi'
+        model_weights: '../demo_facial_description-master/models/Rothe et al/gender.caffemodel'
+        model_decl: '../demo_facial_description-master/models/Rothe et al/gender.prototxt'
+    age:
+        enable: True
+        type: 'Rothe' # | 'Rothe' | 'Levi'
+        model_weights: 'real-age.caffemodel'
+        model_decl: 'real-age.prototxt'
+    Levi:
+        size: [256, 256]
+        net_size: [227, 227]
+        mean_file: '../demo_facial_description-master/models/Levi et al/mean.binaryproto'
+        oversampling: False
+    Rothe:
+        size: [224, 224]
+        means:  [155.07466299442564,118.25716607539773,100.96842082799539] #RGB for UTKFace
+        margin: 0.4
