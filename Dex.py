@@ -1,0 +1,27 @@
+from network import Network
+
+class VGG_ILSVRC_16_layers(Network):
+    def setup(self, reuse=False):
+        (self.feed('data')
+             .conv(3, 3, 64, 1, 1, name='conv1_1', reuse=reuse)
+             .conv(3, 3, 64, 1, 1, name='conv1_2', reuse=reuse)
+             .max_pool(2, 2, 2, 2, name='pool1')
+             .conv(3, 3, 128, 1, 1, name='conv2_1', reuse=reuse)
+             .conv(3, 3, 128, 1, 1, name='conv2_2', reuse=reuse)
+             .max_pool(2, 2, 2, 2, name='pool2')
+             .conv(3, 3, 256, 1, 1, name='conv3_1', reuse=reuse)
+             .conv(3, 3, 256, 1, 1, name='conv3_2', reuse=reuse)
+             .conv(3, 3, 256, 1, 1, name='conv3_3', reuse=reuse)
+             .max_pool(2, 2, 2, 2, name='pool3')
+             .conv(3, 3, 512, 1, 1, name='conv4_1', reuse=reuse)
+             .conv(3, 3, 512, 1, 1, name='conv4_2', reuse=reuse)
+             .conv(3, 3, 512, 1, 1, name='conv4_3', reuse=reuse)
+             .max_pool(2, 2, 2, 2, name='pool4')
+             .conv(3, 3, 512, 1, 1, name='conv5_1', reuse=reuse)
+             .conv(3, 3, 512, 1, 1, name='conv5_2', reuse=reuse)
+             .conv(3, 3, 512, 1, 1, name='conv5_3', reuse=reuse)
+             .max_pool(2, 2, 2, 2, name='pool5')
+             .fc(4096, name='fc6', reuse=reuse)
+             .fc(4096, name='fc7', reuse=reuse)
+             .fc(101, relu=False, name='fc8-101', reuse=reuse)
+             .softmax(name='prob'))
